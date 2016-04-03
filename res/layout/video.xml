@@ -1,0 +1,224 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"    	
+    		android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/parentHolder"
+            android:background="#000000">
+
+    
+    <LinearLayout
+           android:id="@+id/playRenderHolderSmall"
+           android:layout_width="200dp"
+           android:layout_height="100dp"
+           android:background="#FFFFFF"
+           android:orientation="vertical" 
+           android:layout_centerInParent="true"
+           android:visibility="invisible"   >
+    </LinearLayout>
+    
+	<LinearLayout
+           android:id="@+id/playRenderHolder"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:background="#000000"
+           android:orientation="vertical" 
+           >
+    </LinearLayout>
+    
+	<TextView android:id="@+id/bufferUpdateView" 
+          	    android:layout_width="wrap_content" 
+          		android:layout_height="wrap_content"
+          		android:layout_centerInParent="true"
+          		android:textSize="40dp"
+          		android:text="0%"
+          		>
+    </TextView>
+          	
+	 <RelativeLayout android:id="@+id/titleBar" 
+          	android:layout_width="fill_parent" 
+          	android:layout_height="wrap_content"
+          	android:layout_alignTop="@+id/playRenderHolder"
+          	android:layout_alignParentTop="true"
+          	android:background="#000000"
+          	android:orientation="horizontal"
+          	android:alpha="0.5"
+          >
+          	
+			<ImageView android:id="@+id/btnBack" 
+          	    android:src="@drawable/back"
+          	    android:scaleType="center"
+          	    android:layout_width="30dip"
+          	    android:layout_height="30dip"
+          		android:layout_alignParentLeft="true"
+          		android:alpha="0.5">
+			    
+			 </ImageView>
+	  
+			
+			 <ImageView 
+          	    android:id="@+id/btnVolume" 
+          	    android:src="@drawable/volume"
+          	    android:layout_width="30dip" 
+          		android:layout_height="30dip"
+          		android:scaleType="center"
+          		android:layout_toLeftOf="@+id/btnList"
+          		android:paddingRight="20dip"
+          		android:alpha="0.5">
+          	</ImageView>
+          		
+	     	 <ImageView 
+          	    android:id="@+id/btnList" 
+          	    android:src="@drawable/list"
+          	    android:layout_width="30dip" 
+          		android:layout_height="30dip"
+          		android:scaleType="center"
+          		android:layout_toLeftOf="@+id/btnScreen"
+          		android:paddingRight="20dip"
+          		android:alpha="0.5">
+          	</ImageView>
+          		
+	     	  <ImageView 
+          	    android:id="@+id/btnScreen" 
+          	    android:src="@drawable/full"
+          	    android:layout_width="30dip" 
+          		android:layout_height="30dip"
+          		android:scaleType="center"
+          		android:layout_alignParentRight="true"
+          		android:alpha="0.5">
+    		</ImageView>
+       
+    </RelativeLayout>
+    
+	
+          	
+	<LinearLayout android:id="@+id/controlBar" 
+          	android:layout_width="fill_parent" 
+          	android:layout_height="wrap_content"
+          	android:layout_alignBottom="@+id/playRenderHolder"
+          	android:background="#000000"
+          	android:orientation="horizontal"
+          	android:alpha="0.5"
+          	android:gravity="center">
+          	
+	     	<ImageView 
+          	    android:id="@+id/btnPlay" 
+          	    android:src="@drawable/stop"
+          	    android:layout_width="60dip" 
+          		android:layout_height="30dip"
+          		android:scaleType="center"
+          		android:contentDescription="play"
+          		android:layout_centerVertical="true"
+          		android:layout_centerHorizontal="true"
+          		android:alpha="0.5">
+    		</ImageView>
+    
+	     	<TextView android:id="@+id/curTimeView" 
+          	    android:layout_width="wrap_content" 
+          		android:layout_height="wrap_content"
+          		android:layout_marginLeft="10dip"
+          		android:layout_marginRight="10dip"> 
+	     	</TextView>
+          	
+          	<SeekBar
+          	    android:id="@+id/seekPlay"
+          	    android:layout_width="wrap_content"
+          	    android:layout_height="wrap_content"
+          	    android:layout_weight="1" >
+          	    
+          	</SeekBar>
+       
+    </LinearLayout>
+          	
+    <SeekBar
+       	    android:id="@+id/seekVolume"
+       	    android:layout_width="150dp"
+       		android:layout_height="30dp"
+       		android:layout_alignParentRight="true"
+       		android:layout_centerInParent="true"
+       	    android:layout_weight="1"
+       	    android:visibility="invisible" >
+    </SeekBar>
+          	
+
+         
+</RelativeLayout>
+
+
+<!-- 
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"    	
+    		android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+          	android:layout_weight="1"
+          	>
+
+	<LinearLayout
+           android:id="@+id/playRenderHolder"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:background="#000000"
+           android:orientation="vertical"
+            >
+    </LinearLayout>
+         
+  <LinearLayout android:id="@+id/controlBar" 
+          	android:layout_width="fill_parent" 
+          	android:layout_height="wrap_content"
+          	android:layout_gravity="center|bottom"
+          	android:background="#000000"
+          	android:visibility="invisible"
+          	>
+          	<ImageButton 
+          	    android:id="@+id/btnPlay" 
+          	    android:src="@drawable/stop"
+          	    android:layout_width="50dip" 
+          		android:layout_height="50dip"
+          		android:scaleType="centerCrop">
+          	</ImageButton>
+       
+    </LinearLayout>
+
+</FrameLayout>
+ -->
+
+
+
+<!-- 
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"    	
+    		android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+          	android:layout_weight="1">
+
+	<LinearLayout
+           android:id="@+id/playRenderHolder"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:background="#000000"
+            >
+    </LinearLayout>
+         
+    <LinearLayout android:id="@+id/controlBar" 
+          	android:layout_width="fill_parent" 
+          	android:layout_height="100dip"
+          	android:layout_gravity="center|bottom"
+          	android:background="#000000"
+          	android:alpha="0.1">
+          	<Button android:layout_width="wrap_content" 
+          	android:layout_height="wrap_content"
+          	android:text="梁大大">
+          	    
+          	</Button>
+    </LinearLayout>
+</FrameLayout>
+
+
+
+<ImageButton 
+          	    android:id="@+id/btnPlay" 
+          	    android:src="@drawable/stop"
+          	    android:layout_width="50dip" 
+          		android:layout_height="50dip"
+          		android:scaleType="centerCrop"
+          		android:contentDescription="play"
+          		android:layout_centerVertical="true"
+          		android:layout_centerHorizontal="true"
+          	>
+ -->

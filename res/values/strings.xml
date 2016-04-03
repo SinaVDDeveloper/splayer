@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SPlayer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="sinavideo">Sina Video</string>
+     <string name="fast">Fast</string>
+      <string name="drop">Drop</string>
+
+</resources>

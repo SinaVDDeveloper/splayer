@@ -1,0 +1,93 @@
+install prefix            ./prebuild/vfp
+source path               .
+C compiler                arm-linux-androideabi-gcc
+ARCH                      arm (armv6)
+big-endian                no
+runtime cpu detection     no
+ARMv5TE enabled           yes
+ARMv6 enabled             yes
+ARMv6T2 enabled           yes
+VFP enabled               yes
+NEON enabled              yes
+THUMB enabled             no
+debug symbols             no
+strip symbols             yes
+optimize for size         no
+optimizations             yes
+static                    yes
+shared                    no
+postprocessing support    yes
+new filter support        no
+network support           yes
+threading support         pthreads
+safe bitstream reader     yes
+SDL support               no
+opencl enabled            no
+libzvbi enabled           no
+texi2html enabled         no
+perl enabled              yes
+pod2man enabled           yes
+makeinfo enabled          yes
+
+External libraries:
+libstagefright_h264	zlib
+
+Enabled decoders:
+aac			mjpeg			nellymoser
+ac3			movtext			rawvideo
+flv			mp3			vc1
+h263			mpeg1video		vp8
+h264			mpeg2video		wmv3
+hevc			mpeg4
+libstagefright_h264	mpegvideo
+
+Enabled encoders:
+
+Enabled hwaccels:
+
+Enabled parsers:
+aac			dvbsub			mpegaudio
+aac_latm		dvd_nav			mpegvideo
+ac3			dvdsub			png
+adx			flac			pnm
+bmp			gsm			rv30
+cavsvideo		h261			rv40
+cook			h263			tak
+dca			h264			vc1
+dirac			mjpeg			vorbis
+dnxhd			mlp			vp3
+dpx			mpeg4video		vp8
+
+Enabled demuxers:
+asf			matroska		mpegtsraw
+concat			mov			mpegvideo
+flv			mp3			rm
+hls			mpegts			rtsp
+
+Enabled muxers:
+mov			mp4
+
+Enabled protocols:
+crypto			mmsh			tcp
+file			mmst			udp
+hls			rtmp
+http			rtp
+
+Enabled filters:
+
+Enabled bsfs:
+aac_adtstoasc		mjpeg2jpeg		noise
+chomp			mjpega_dump_header	remove_extradata
+dump_extradata		mov2textsub		text2movsub
+h264_mp4toannexb	mp3_header_compress
+imx_dump_header		mp3_header_decompress
+
+Enabled indevs:
+
+Enabled outdevs:
+
+License: nonfree and unredistributable
+Creating config.mak, config.h, and doc/config.texi...
+libavutil/avconfig.h is unchanged
+
+WARNING: arm-linux-androideabi-pkg-config not found, library detection may fail.

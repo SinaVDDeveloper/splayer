@@ -1,0 +1,176 @@
+#!/bin/bash
+
+if [ "$ANDROID_NDK_ROOT" = "" ] ; then
+ echo "please set env ANDROID_NDK_ROOT to your android NDK root dir"
+ exit 0
+fi
+
+NDK=$ANDROID_NDK_ROOT
+
+if [ "$NDK" = "" ]; then
+    echo NDK variable not set, assuming ${HOME}/android-ndk
+    export NDK=${HOME}/android-ndk
+fi
+
+PLATFORM="$1"
+
+DEST=./prebuild
+mkdir -p $DEST
+
+if [ "$PLATFORM" = "x86" ]; then
+	SYSROOT=$NDK/platforms/android-9/arch-x86
+	# Expand the prebuilt/* path into the correct one
+	TOOLCHAIN=`echo $NDK/toolchains/x86-4.9/prebuilt/*-x86_64`
+	TARGET="x86"
+	CROSS_PREFIX=i686-linux-android-
+elif [ "$PLATFORM" = "mips" ]; then
+	SYSROOT=$NDK/platforms/android-9/arch-mips
+	# Expand the prebuilt/* path into the correct one
+	TOOLCHAIN=`echo $NDK/toolchains/mipsel-linux-android-4.9/prebuilt/*-x86_64`
+	TARGET="mips"
+	CROSS_PREFIX=mipsel-linux-android-
+else 
+	SYSROOT=$NDK/platforms/android-9/arch-arm
+	# Expand the prebuilt/* path into the correct one
+	TOOLCHAIN=`echo $NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/*-x86_64`
+	TARGET="neon armv7 vfp armv6"
+	CROSS_PREFIX=arm-linux-androideabi-
+fi
+
+export PATH=$TOOLCHAIN/bin:$PATH
+
+#FFMPEG_CONFIG_FLAGS="--enable-nonfree --enable-gpl --enable-version3 --enable-static --disable-shared --disable-programs --disable-devices --disable-avdevice --disable-filters --disable-avfilter  --disable-muxers --disable-encoders --enable-decoder=h264 --disable-decoder=h264_vdpau --enable-libstagefright-h264"
+
+
+FFMPEG_CONFIG_FLAGS="--enable-nonfree --enable-gpl --enable-version3 --disable-shared --enable-static --disable-symver --disable-programs --disable-doc --disable-avdevice --disable-encoders  --disable-muxers --disable-devices --disable-everything  --disable-protocols --disable-demuxers --disable-decoders  --disable-debug --enable-optimizations --disable-filters --disable-avfilter --enable-bsfs --enable-parsers  --disable-parser=hevc --enable-swscale --enable-network --enable-protocol=file --enable-protocol=http --enable-protocol=rtmp --enable-protocol=rtp --enable-protocol=mmst --enable-protocol=mmsh --enable-protocol=crypto --enable-protocol=hls --enable-demuxer=hls --enable-demuxer=mpegts --enable-demuxer=mpegtsraw --enable-demuxer=mpegvideo --enable-demuxer=concat --enable-demuxer=mov --enable-demuxer=flv --enable-demuxer=rtsp --enable-demuxer=mp3 --enable-demuxer=matroska --enable-decoder=mpeg4 --enable-decoder=mpegvideo --enable-decoder=mpeg1video --enable-decoder=mpeg2video --enable-decoder=hevc --enable-decoder=h264 --enable-decoder=h263 --enable-decoder=flv --enable-decoder=vp8 --enable-decoder=rawvideo --enable-decoder=mjpeg --enable-decoder=wmv3 --enable-decoder=aac --enable-decoder=ac3 --enable-decoder=mp3 --enable-decoder=nellymoser --enable-muxer=mp4 --enable-libstagefright-h264 --enable-decoder=libstagefright_h264 --enable-decoder=movtext"
+
+CFLAGS="-std=c99 -O3 -Wall -pipe -fpic -fasm -finline-limit=300 -ffast-math -fstrict-aliasing -Werror=strict-aliasing -Wno-psabi -Wa,--noexecstack -fdiagnostics-color=always -DANDROID -DNDEBUG"
+
+case $CROSS_PREFIX in
+  arm-*)
+    CFLAGS="-mthumb $CFLAGS \
+      -D__ARM_ARCH_5__ -D__ARM_ARCH_5E__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5TE__"
+    ;;
+  i686-*)
+    CFLAGS="$CFLAGS -fomit-frame-pointer"
+    ;;
+  mipsel-*)
+    CFLAGS="-std=c99 -O3 -Wall -pipe -fpic -fasm \
+      -ftree-vectorize -ffunction-sections -funwind-tables -fomit-frame-pointer -funswitch-loops \
+      -finline-limit=300 -finline-functions -fpredictive-commoning -fgcse-after-reload -fipa-cp-clone \
+      -Wno-psabi -Wa,--noexecstack \
+      -DANDROID -DNDEBUG"
+    ;;
+esac
+
+for version in $TARGET; do
+case $version in
+    neon)
+    echo "building for armv7 neon"
+    ABI="armeabi-v7a"
+    FLAGS="--target-os=linux --cross-prefix=arm-linux-androideabi- --arch=armv7-a --cpu=cortex-a8 --disable-runtime-cpudetect "
+    FLAGS="$FLAGS --sysroot=$SYSROOT"
+    EXTRA_CFLAGS="-I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/include -I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI/include"
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -march=armv7-a -mfloat-abi=softfp -mfpu=neon -mvectorize-with-neon-quad -O3"
+    EXTRA_LDFLAGS="-Wl,--fix-cortex-a8 -L$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI"
+    EXTRA_CXXFLAGS="-Wno-multichar -fno-exceptions -fno-rtti -fpermissive"  
+    DEST_SUB="$DEST/$version"
+    rm -rf $DEST_SUB
+    mkdir -p $DEST_SUB
+    FLAGS="$FLAGS --prefix=$DEST_SUB $FFMPEG_CONFIG_FLAGS"
+    ;;
+    armv7)
+    echo "building for armv7 vfp"
+    ABI="armeabi-v7a"
+    FLAGS="--target-os=linux --cross-prefix=arm-linux-androideabi- --arch=armv7-a --cpu=cortex-a8 --disable-runtime-cpudetect "
+    FLAGS="$FLAGS --sysroot=$SYSROOT"
+    EXTRA_CFLAGS="-I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/include -I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI/include"
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -O3"
+    EXTRA_LDFLAGS="-Wl,--fix-cortex-a8 -L$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI"
+    EXTRA_CXXFLAGS="-Wno-multichar -fno-exceptions -fno-rtti -fpermissive"
+    DEST_SUB="$DEST/$version"
+    rm -rf $DEST_SUB
+    mkdir -p $DEST_SUB
+    FLAGS="$FLAGS --prefix=$DEST_SUB $FFMPEG_CONFIG_FLAGS"
+    ;;  
+    vfp)
+    echo "building for armv6 vfp"
+    ABI="armeabi"
+    FLAGS="--target-os=linux --cross-prefix=arm-linux-androideabi- --arch=arm --disable-runtime-cpudetect "
+    FLAGS="$FLAGS --sysroot=$SYSROOT"
+    EXTRA_CFLAGS="-I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/include -I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI/include"
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -march=armv6 -mfloat-abi=softfp -mfpu=vfp -O3"
+    EXTRA_LDFLAGS="-L$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI"
+    EXTRA_CXXFLAGS="-Wno-multichar -fno-exceptions -fno-rtti -fpermissive"
+    DEST_SUB="$DEST/$version"
+    rm -rf $DEST_SUB
+    mkdir -p $DEST_SUB
+    FLAGS="$FLAGS --prefix=$DEST_SUB $FFMPEG_CONFIG_FLAGS"
+    ;;  
+    armv6)
+    echo "building for armv6"
+    ABI="armeabi"
+    FLAGS="--target-os=linux --cross-prefix=arm-linux-androideabi- --arch=arm --disable-runtime-cpudetect "
+    FLAGS="$FLAGS --sysroot=$SYSROOT"
+    EXTRA_CFLAGS="-I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/include -I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI/include"
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -march=armv6 -msoft-float -O3"
+    EXTRA_LDFLAGS="-L$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI"
+    EXTRA_CXXFLAGS="-Wno-multichar -fno-exceptions -fno-rtti -fpermissive"
+    DEST_SUB="$DEST/$version"
+    rm -rf $DEST_SUB
+    mkdir -p $DEST_SUB
+    FLAGS="$FLAGS --prefix=$DEST_SUB $FFMPEG_CONFIG_FLAGS"
+    ;;  
+    x86)
+    echo "building for x86"
+    ABI="x86"
+    FLAGS="--target-os=linux --cross-prefix=i686-linux-android- --arch=x86 --cpu=i686 --enable-runtime-cpudetect --disable-yasm  --enable-asm --disable-amd3dnow --disable-amd3dnowext"
+    FLAGS="$FLAGS --sysroot=$SYSROOT"
+    EXTRA_CFLAGS="-I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/include -I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI/include"
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -march=atom -msse3 -ffast-math -mfpmath=sse"
+    EXTRA_LDFLAGS="-L$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI"
+    EXTRA_CXXFLAGS="-Wno-multichar -fno-exceptions -fno-rtti"
+    DEST_SUB="$DEST/$version"
+    rm -rf $DEST_SUB
+    mkdir -p $DEST_SUB
+    FLAGS="$FLAGS --prefix=$DEST_SUB $FFMPEG_CONFIG_FLAGS"
+    ;;  
+    mips)
+    echo "building for mips"
+    ABI="mips"
+    FLAGS="--target-os=linux --cross-prefix=mipsel-linux-android- --arch=mips --cpu=mips32r2 --enable-runtime-cpudetect  --enable-yasm  --enable-asm --disable-mipsfpu --disable-mipsdspr1 --disable-mipsdspr2"
+    FLAGS="$FLAGS --sysroot=$SYSROOT"
+    EXTRA_CFLAGS="-I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/include -I$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI/include"
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -fno-strict-aliasing -fmessage-length=0 -fno-inline-functions-called-once -frerun-cse-after-loop -frename-registers"
+    EXTRA_LDFLAGS="-L$NDK/sources/cxx-stl/gnu-libstdc++/4.9/libs/$ABI"
+    EXTRA_CXXFLAGS="-Wno-multichar -fno-exceptions -fno-rtti"
+    DEST_SUB="$DEST/$version"
+    rm -rf $DEST_SUB
+    mkdir -p $DEST_SUB
+    FLAGS="$FLAGS --prefix=$DEST_SUB $FFMPEG_CONFIG_FLAGS"
+    ;;  
+    *)
+    echo "ERROR: TAREGT $version not support!"
+    exit 1
+    ;;
+esac
+
+
+mkdir -p $DEST_SUB
+
+echo $FLAGS --extra-cflags="$EXTRA_CFLAGS" --extra-ldflags="$EXTRA_LDFLAGS" --extra-cxxflags="$EXTRA_CXXFLAGS" > $DEST_SUB/info.txt
+
+
+./configure $FLAGS --extra-cflags="$EXTRA_CFLAGS" --extra-ldflags="$EXTRA_LDFLAGS" --extra-cxxflags="$EXTRA_CXXFLAGS" | tee $DEST_SUB/configuration.txt
+[ $PIPESTATUS == 0 ] || exit 1
+
+make clean
+make -j4
+make install
+
+cp ./config.h $DEST_SUB/config.h
+cp ./libavutil/colorspace.h $DEST_SUB/include/libavutil/colorspace.h
+
+done
+
+echo "build success"

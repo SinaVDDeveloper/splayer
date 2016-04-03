@@ -1,0 +1,162 @@
+<LinearLayout 
+    	xmlns:android="http://schemas.android.com/apk/res/android"    		    		
+    		android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">    
+ 
+     <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+		<TextView   android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lowres"/>
+        <Spinner
+            android:id="@+id/lowres"
+            android:layout_width="30dip"
+            android:layout_height="wrap_content"/>
+        
+        <TextView   android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="skip"/>
+        <Spinner
+            android:id="@+id/skipFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView   android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="idct"/>
+        <Spinner
+            android:id="@+id/skipIdct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+         <TextView   android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="filter"/>
+        <Spinner
+            android:id="@+id/skipLoopfilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+         <TextView   android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="buffer"/>
+        <Spinner
+            android:id="@+id/bufferFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+     </LinearLayout>
+     
+     <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+    	
+    	<Button android:id="@+id/btnTest"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="test" />
+    	
+    	<Button android:id="@+id/btnVideoView"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="view" />
+    	
+    	<ToggleButton
+		        android:id="@+id/dropEnable"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textOn="drop"
+		        android:textOff="drop" />"
+        <ToggleButton
+		        android:id="@+id/fastEnable"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textOn="fast"
+		        android:textOff="fast" />
+		
+         <ToggleButton
+		        android:id="@+id/debugEnable"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textOn="debug"
+		        android:textOff="debug" />
+         
+          <ToggleButton
+		        android:id="@+id/softEnable"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textOn="soft"
+		        android:textOff="soft" />
+     </LinearLayout>
+    
+     <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+         <Button android:id="@+id/btnPlay"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="local" />
+         
+		<EditText android:id="@+id/btnAddr"
+		    					android:layout_width="300dip"
+			   					android:layout_height="40dip"
+			   					android:inputType="text">
+		    
+		</EditText>
+	
+	</LinearLayout>
+	
+    <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+         <Button android:id="@+id/btnPlay2"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="local" />
+         
+		<EditText android:id="@+id/btnAddr2"
+		    					android:layout_width="300dip"
+			   					android:layout_height="40dip"
+			   					android:inputType="text">
+		    
+		</EditText>
+	
+	</LinearLayout>
+	
+	<LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+		<Button android:id="@+id/btnPlayHttp"
+		                    android:layout_width="100dip"
+		                    android:layout_height="40dip"
+		                    android:text="标清" />
+		<Button android:id="@+id/btnPlayHttp2"
+		                    android:layout_width="100dip"
+		                    android:layout_height="40dip"
+		                    android:text="高清" />
+		<Button android:id="@+id/btnPlayHttp3"
+		                    android:layout_width="100dip"
+		                    android:layout_height="40dip"
+		                    android:text="超清" />
+    </LinearLayout>
+
+	
+	<LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+	    <Button android:id="@+id/btnPlayLive"
+		                    android:layout_width="100dip"
+		                    android:layout_height="40dip"
+		                    android:text="标清" />
+	     <Button android:id="@+id/btnPlayLive2"
+		                    android:layout_width="100dip"
+		                    android:layout_height="40dip"
+		                    android:text="高清" />
+	      <Button android:id="@+id/btnPlayLive3"
+		                    android:layout_width="100dip"
+		                    android:layout_height="40dip"
+		                    android:text="超清" />
+	</LinearLayout>
+	
+</LinearLayout >   

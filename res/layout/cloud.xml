@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"    	
+    		android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/parentHolder"
+            android:background="#FFFFFF">
+   
+	<LinearLayout
+           android:id="@+id/playRenderHolder"
+           android:layout_width="fill_parent"
+           android:layout_height="200dp"
+           android:background="#000000"
+           android:orientation="vertical" 
+           android:layout_centerInParent="true" >
+    </LinearLayout>
+    
+	<Button android:id="@+id/btnPlay"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="播放" 
+		                    android:layout_alignParentLeft="true"
+		                    android:layout_alignParentBottom="true" >
+    	    
+    </Button>
+    	
+    	
+    <Button android:id="@+id/btnFull"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="全屏" 
+		                    android:layout_alignParentRight="true"
+		                    android:layout_alignParentBottom="true">
+	</Button>
+
+</RelativeLayout>
+
+<!-- 
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"    	
+    		android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+          	android:layout_weight="1"
+          	>
+
+	<LinearLayout
+           android:id="@+id/playRenderHolder"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:background="#000000"
+           android:orientation="vertical"
+            >
+    </LinearLayout>
+         
+  <LinearLayout android:id="@+id/controlBar" 
+          	android:layout_width="fill_parent" 
+          	android:layout_height="wrap_content"
+          	android:layout_gravity="center|bottom"
+          	android:background="#000000"
+          	android:visibility="invisible"
+          	>
+          	<ImageButton 
+          	    android:id="@+id/btnPlay" 
+          	    android:src="@drawable/stop"
+          	    android:layout_width="50dip" 
+          		android:layout_height="50dip"
+          		android:scaleType="centerCrop">
+          	</ImageButton>
+       
+    </LinearLayout>
+
+</FrameLayout>
+ -->
+
+
+
+<!-- 
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"    	
+    		android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+          	android:layout_weight="1">
+
+	<LinearLayout
+           android:id="@+id/playRenderHolder"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:background="#000000"
+            >
+    </LinearLayout>
+         
+    <LinearLayout android:id="@+id/controlBar" 
+          	android:layout_width="fill_parent" 
+          	android:layout_height="100dip"
+          	android:layout_gravity="center|bottom"
+          	android:background="#000000"
+          	android:alpha="0.1">
+          	<Button android:layout_width="wrap_content" 
+          	android:layout_height="wrap_content"
+          	android:text="梁大大">
+          	    
+          	</Button>
+    </LinearLayout>
+</FrameLayout>
+
+
+
+<ImageButton 
+          	    android:id="@+id/btnPlay" 
+          	    android:src="@drawable/stop"
+          	    android:layout_width="50dip" 
+          		android:layout_height="50dip"
+          		android:scaleType="centerCrop"
+          		android:contentDescription="play"
+          		android:layout_centerVertical="true"
+          		android:layout_centerHorizontal="true"
+          	>
+ -->

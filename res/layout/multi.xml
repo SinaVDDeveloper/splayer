@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    	
+    		android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/parentHolder"
+            android:background="#FFFFFF"
+            android:orientation="vertical" > 
+
+	<LinearLayout
+           android:id="@+id/playRenderHolder"
+           android:layout_width="fill_parent"
+           android:layout_height="200dip"
+           android:background="#000000"
+           android:orientation="vertical" >
+    </LinearLayout>
+    
+	
+	<LinearLayout
+           android:id="@+id/playRenderHolder"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+         
+           android:orientation="horizontal" >
+           
+	    <Button 
+			android:id="@+id/playBtn"
+			android:layout_width="wrap_content" 
+          	android:layout_height="wrap_content"
+          	android:text="Play">
+          	    
+    	</Button>
+	
+		<Button 
+			android:id="@+id/playBtn2"
+			android:layout_width="wrap_content" 
+          	android:layout_height="wrap_content"
+          	android:text="Play2">
+          	    
+    	</Button>
+    	
+		<Button 
+			android:id="@+id/playBtn3"
+			android:layout_width="wrap_content" 
+          	android:layout_height="wrap_content"
+          	android:text="Play3">
+          	    
+    	</Button>
+    	
+		<Button 
+			android:id="@+id/playBtn4"
+			android:layout_width="wrap_content" 
+          	android:layout_height="wrap_content"
+          	android:text="Play4">
+          	    
+    	</Button>
+    	
+		
+		<Button 
+			android:id="@+id/playBtn5"
+			android:layout_width="wrap_content" 
+          	android:layout_height="wrap_content"
+          	android:text="Play5">
+          	    
+    	</Button>
+    </LinearLayout>
+    
+	
+    
+
+</LinearLayout>
+

@@ -1,0 +1,28 @@
+<LinearLayout 
+    	xmlns:android="http://schemas.android.com/apk/res/android"    		    		
+    		android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">    
+ 
+    	<Button android:id="@+id/btnSingle"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="single play" />
+    	
+    	<Button android:id="@+id/btnMulti"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="list play" />
+    	
+    	<Button android:id="@+id/btnTow"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="tow player" />
+    	
+    	<Button android:id="@+id/btnOverlap"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="tow player overlap" /> 
+    	
+ 
+</LinearLayout >   
